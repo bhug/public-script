@@ -1,3 +1,57 @@
-$(document).ready(function() {
-  console.log('Init youtube-hide-watched script');
-});
+(function(){
+  
+  // Constants
+  MENU_SELECTOR = 'ytd-app>#content>#masthead-container>ytd-masthead#masthead>#container>#end';
+  VIDEO_OVERLAY_SELECTOR = '.ytd-thumbnail-overlay-resume-playback-renderer';
+  VIDEO_CONTAINER_SELECTOR = 'ytd-grid-video-renderer,ytd-rich-item-renderer,ytd-compact-video-renderer,ytd-video-renderer';
+  
+  // Variables
+  _showWatched = true;
+  
+  // Functions
+  prepareMenu = function(){
+    var htmlContainer = $('<div></div>');
+    htmlContainer.css('color','white');
+    htmlContainer.css('fontWeight','bold');
+    htmlContainer.css('textAlign','right');
+    htmlContainer.css('marginRight','10px');
+
+    var htmlInput = $('<input id="hideWatched" type="checkbox" />');
+    htmlInput.prop('checked', _showWatched);
+    htmlInput.click(onHideWatchedClick);
+    htmlContainer.append(htmlInput);
+
+    var htmlLabel = $('<label for="hideWatched">Show Watched</label>');
+    htmlLabel.css('verticalAlign','super');
+    htmlContainer.append(htmlLabel);
+    
+    return htmlContainer;
+  };
+  
+  // Function on click
+  onHideWatchedClick = function(event){
+    if($(event.target).is(':checked')){
+      _showWatched = true;
+      console.log('Show Watched');
+    }else{
+      _showWatched = false;
+      console.log('Hide Watched');
+    }
+  };
+  
+  // Interval
+  hideWatchedInterval = setInterval(function(){
+    if(_showWatched){
+    	$(VIDEO_OVERLAY_SELECTOR).parents(VIDEO_CONTAINER_SELECTOR).show();
+    }else{
+    	$(VIDEO_OVERLAY_SELECTOR).parents(VIDEO_CONTAINER_SELECTOR).hide();
+    }
+  }, 500);
+  
+  // Add checkbox to menu
+  $(document).ready(function() {
+    console.log('Init youtube-hide-watched script');
+    $(MENU_SELECTOR).prepend(prepareMenu());
+  });
+  
+})();
