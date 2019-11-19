@@ -50,8 +50,8 @@
   
   // Add checkbox to menu
   $(document).ready(function() {
-    console.log('Init youtube-hide-watched script');
-    $(MENU_SELECTOR).prepend(prepareMenu());
+    console.log('Init youtube-hide-watched script, wait 2sec then create menu checkbox');
+    setTimeout(function(){ $(MENU_SELECTOR).prepend(prepareMenu()); }, 2000);
   });
   
 })();
