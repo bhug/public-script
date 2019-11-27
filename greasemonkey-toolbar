@@ -1,0 +1,9 @@
+// ==UserScript==
+// @name     BHUG Webclient Toolbar - BWT
+// @version  2
+// @grant    none
+// @require  https://code.jquery.com/jquery-3.4.1.min.js
+// @require  https://raw.githubusercontent.com/bhug/public-script/master/utils
+// @require  https://raw.githubusercontent.com/bhug/public-script/master/bwt-toolbar
+// @require  https://raw.githubusercontent.com/bhug/public-script/master/bwt-items
+// ==/UserScript==
