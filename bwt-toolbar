@@ -1,0 +1,55 @@
+class BhugWebclientToolbar{
+  
+  constructor() {
+    
+    // Properties
+    this._htmlToolbar = this._buildToolbar();
+    //this._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
+    
+    // Init
+    var that = this;
+    $(document).ready(function() {
+      $(document.body).prepend(that._htmlToolbar)
+    });
+  }
+  
+  _buildToolbar() {
+    
+      var htmlContainer = $('<div class="bwtToolbarContainer"></div>');
+      htmlContainer.css('position','fixed');
+      htmlContainer.css('top','0');
+      htmlContainer.css('width','100%');
+      htmlContainer.css('zIndex','100000000000');
+      htmlContainer.css('display','flex');
+      htmlContainer.css('alignItem','center');
+      htmlContainer.css('justifyContent','center');
+
+      var menuContainer = $('<div class="bwtMenuContainer"></div>');
+      menuContainer.css('background','black');
+      menuContainer.css('color','white');
+      menuContainer.css('opacity','.8');
+      menuContainer.css('fontSize','10px');
+      menuContainer.css('lineHeight','12px');
+      menuContainer.css('fontFamily','Arial');
+      menuContainer.css('fontWeight','600');
+      menuContainer.css('letterSpacing','normal');
+      menuContainer.css('display','flex');
+      menuContainer.css('alignItems','center');
+      menuContainer.css('justifyContent','center');
+      menuContainer.css('padding','2px 10px');
+      htmlContainer.append(menuContainer);
+
+      return htmlContainer; 
+    
+  }
+  
+  _addMenuItem(aBwtMenuItem) {
+    
+    // Validation tests
+    AssertUtils.isDefined(aBwtMenuItem, 'Parameter aBwtMenuItem is required');
+    
+    // Container
+    this._htmlToolbar.find('.bwtMenuContainer').append(aBwtMenuItem.htmlMenuItem);
+  }
+  
+}
