@@ -1,10 +1,13 @@
+/**
+ * Barre d'outils (toolbar) vide
+ * @class
+ */
 class BhugWebclientToolbar{
   
   constructor() {
     
     // Properties
     this._htmlToolbar = this._buildToolbar();
-    //this._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
     
     // Init
     var that = this;
@@ -50,6 +53,91 @@ class BhugWebclientToolbar{
     
     // Container
     this._htmlToolbar.find('.bwtMenuContainer').append(aBwtMenuItem.htmlMenuItem);
+  }
+  
+}
+
+/**
+ * Simple élément (item) de la barre d'outils
+ * @class
+ */
+class BwtMenuItem{
+	constructor(aContent) {
+  	this._htmlMenuItem = aContent;
+  }
+  
+  get htmlMenuItem() {
+    return this._htmlMenuItem;
+  }
+}
+
+/**
+ * Elément séparateur de la barre d'outils
+ * @class
+ */
+class BwtSeparatorMenuItem extends BwtMenuItem{
+  constructor(aContent) {
+    if(aContent == undefined) aContent = '';
+    var htmlContainer = $('<div>'+aContent+'</div>');
+    htmlContainer.css('marginLeft','20px');
+    super(htmlContainer);
+  }
+}
+
+/**
+ * Elément séparateur avec la favicon comme contenu
+ * @class
+ */
+class BwtFaviconSeparatorMenuItem extends BwtSeparatorMenuItem{
+  constructor() {
+    super('<img style="height:15px;" src="'+HtmlUtils.getFavicon()+'" />');
+  }
+}
+
+
+/**
+ * Elément de type checkbox
+ * @class
+ */
+class BwtChkboxMenuItem extends BwtMenuItem{
+  
+  constructor(aId, aLabel) {
+    super();
+    this._htmlMenuItem = this._buildHtmlMenuItem(aId, aLabel);
+  }
+  
+  _buildHtmlMenuItem(aId, aLabel) {
+    
+    // Validation tests
+    AssertUtils.isDefined(aId,'Parameter aId is required');
+    AssertUtils.isDefined(aLabel,'Parameter aLabel is required');
+    
+    // Container
+   	var htmlContainer = $('<div></div>');
+    htmlContainer.css('display','flex');
+    htmlContainer.css('alignItems','center');
+    htmlContainer.css('marginRight','5px');
+    
+    // Input
+    var htmlInput = $('<input id="'+aId+'" type="checkbox" />');
+    htmlInput.css('margin','2px');
+    var that = this;
+    var vOnclick = function(aEvent){
+      that._onClick(that, aEvent);
+    }
+    htmlInput.click(vOnclick);
+    htmlContainer.append(htmlInput);
+
+    // Label
+    var htmlLabel = $('<label for="'+aId+'">'+aLabel+'</label>');
+    htmlLabel.css('margin','0px');
+    htmlContainer.append(htmlLabel);
+    
+    return htmlContainer; 
+  }
+  
+  _onClick(aEvent) {
+    console.warn("Default onclick, must be override");
   }
   
 }
