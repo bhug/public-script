@@ -1,0 +1,64 @@
+class BwtAutoscrollMenuItem extends BwtChkboxMenuItem{
+  constructor() {
+    super('bwt-autoscroll', 'Auto-Scroll');
+    this._autoscrollInterval = null;
+  }
+  
+  _onClick(that, aEvent) {
+    try{
+      if($(aEvent.target).is(':checked')){
+        that._autoscrollInterval = setInterval(function(){ window.scrollBy(0,document.documentElement.scrollHeight); }, 200);
+      }else{
+        clearInterval(this._autoscrollInterval);
+        that._autoscrollInterval = null;
+      }
+    }catch(e){
+      console.error("ERROR",e); 
+    }
+  }
+}
+
+class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
+  constructor() {
+    super('bwt-yt-show-watched','Show watched');
+    
+    // Constants
+  	this._VIDEO_OVERLAY_SELECTOR = '.ytd-thumbnail-overlay-resume-playback-renderer';
+  	this._VIDEO_CONTAINER_SELECTOR = 'ytd-grid-video-renderer,ytd-rich-item-renderer,ytd-compact-video-renderer,ytd-video-renderer';
+
+    // Properties
+    this._showWatched = true;
+    this._interval = null;
+    
+    // Init checkbox
+    this.htmlMenuItem.find('input#bwt-yt-show-watched').prop('checked', this._showWatched);
+    
+    // Interval
+    var that = this;
+    this._interval = setInterval(function(){
+      if(that._showWatched){
+        $(that._VIDEO_OVERLAY_SELECTOR).parents(that._VIDEO_CONTAINER_SELECTOR).show();
+      }else{
+        $(that._VIDEO_OVERLAY_SELECTOR).parents(that._VIDEO_CONTAINER_SELECTOR).hide();
+      }
+    }, 500);
+  }
+  
+  _onClick(that, aEvent) {
+    if($(aEvent.target).is(':checked')){
+      that._showWatched = true;
+    }else{
+      that._showWatched = false;
+    }
+  }
+}
+
+
+var toolbar = new BhugWebclientToolbar();
+toolbar._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
+toolbar._addMenuItem(new BwtSeparatorMenuItem());
+toolbar._addMenuItem(new BwtAutoscrollMenuItem());
+if(document.location.href.includes('youtube.com')){
+  toolbar._addMenuItem(new BwtFaviconSeparatorMenuItem());
+  toolbar._addMenuItem(new BwtYtShowWatchedMenuItem());
+}
