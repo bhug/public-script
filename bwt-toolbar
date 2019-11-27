@@ -113,7 +113,7 @@ class BwtChkboxMenuItem extends BwtMenuItem{
     AssertUtils.isDefined(aLabel,'Parameter aLabel is required');
     
     // Container
-   	var htmlContainer = $('<div></div>');
+    var htmlContainer = $('<div></div>');
     htmlContainer.css('display','flex');
     htmlContainer.css('alignItems','center');
     htmlContainer.css('marginRight','5px');
@@ -121,6 +121,7 @@ class BwtChkboxMenuItem extends BwtMenuItem{
     // Input
     var htmlInput = $('<input id="'+aId+'" type="checkbox" />');
     htmlInput.css('margin','2px');
+    htmlInput.css('transform','scale(.8)');
     var that = this;
     var vOnclick = function(aEvent){
       that._onClick(that, aEvent);
