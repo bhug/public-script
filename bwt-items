@@ -62,13 +62,11 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
 /* *****************************************
  * Custom toolbar
  */
-(function() {
-  var toolbar = new BhugWebclientToolbar();
-  toolbar._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
-  toolbar._addMenuItem(new BwtSeparatorMenuItem());
-  toolbar._addMenuItem(new BwtAutoscrollMenuItem());
-  if(document.location.href.includes('youtube.com')){
-    toolbar._addMenuItem(new BwtFaviconSeparatorMenuItem());
-    toolbar._addMenuItem(new BwtYtShowWatchedMenuItem());
-  }
-})();
+var _bwt_toolbar = new BhugWebclientToolbar();
+_bwt_toolbar._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
+_bwt_toolbar._addMenuItem(new BwtSeparatorMenuItem());
+_bwt_toolbar._addMenuItem(new BwtAutoscrollMenuItem());
+if(document.location.href.includes('youtube.com')){
+  _bwt_toolbar._addMenuItem(new BwtFaviconSeparatorMenuItem());
+  _bwt_toolbar._addMenuItem(new BwtYtShowWatchedMenuItem());
+}
