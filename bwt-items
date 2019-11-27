@@ -1,3 +1,6 @@
+/* *****************************************
+ * Auto scroll
+ */
 class BwtAutoscrollMenuItem extends BwtChkboxMenuItem{
   constructor() {
     super('bwt-autoscroll', 'Auto-Scroll');
@@ -18,6 +21,9 @@ class BwtAutoscrollMenuItem extends BwtChkboxMenuItem{
   }
 }
 
+/* *****************************************
+ * Youtube - Show watched
+ */
 class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
   constructor() {
     super('bwt-yt-show-watched','Show watched');
@@ -53,12 +59,16 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
   }
 }
 
-
-var toolbar = new BhugWebclientToolbar();
-toolbar._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
-toolbar._addMenuItem(new BwtSeparatorMenuItem());
-toolbar._addMenuItem(new BwtAutoscrollMenuItem());
-if(document.location.href.includes('youtube.com')){
-  toolbar._addMenuItem(new BwtFaviconSeparatorMenuItem());
-  toolbar._addMenuItem(new BwtYtShowWatchedMenuItem());
-}
+/* *****************************************
+ * Custom toolbar
+ */
+(function() {
+  var toolbar = new BhugWebclientToolbar();
+  toolbar._addMenuItem(new BwtMenuItem('bhug-webclient-toolbar'));
+  toolbar._addMenuItem(new BwtSeparatorMenuItem());
+  toolbar._addMenuItem(new BwtAutoscrollMenuItem());
+  if(document.location.href.includes('youtube.com')){
+    toolbar._addMenuItem(new BwtFaviconSeparatorMenuItem());
+    toolbar._addMenuItem(new BwtYtShowWatchedMenuItem());
+  }
+})();
