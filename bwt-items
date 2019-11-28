@@ -43,11 +43,21 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
     var that = this;
     this._interval = setInterval(function(){
       if(that._showWatched){
-        $(that._VIDEO_OVERLAY_SELECTOR).parents(that._VIDEO_CONTAINER_SELECTOR).show();
+        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+'.bwt-hidden');
+        if(overlays.length > 0){
+          console.log('Show '+overlays.length+' vidéos');
+          overlays.parents(that._VIDEO_CONTAINER_SELECTOR).show();
+          overlays.removeClass('bwt-hidden');
+        }
       }else{
-        $(that._VIDEO_OVERLAY_SELECTOR).parents(that._VIDEO_CONTAINER_SELECTOR).hide();
+        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+':not(.bwt-hidden)');
+        if(overlays.length > 0){
+          console.log('Hide '+overlays.length+' vidéos');
+          overlays.parents(that._VIDEO_CONTAINER_SELECTOR).hide();
+          overlays.addClass('bwt-hidden');
+        }
       }
-    }, 500);
+    }, 1000);
   }
   
   _onClick(that, aEvent) {
