@@ -29,7 +29,7 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
     super('bwt-yt-show-watched','Show watched');
     
     // Constants
-  	this._VIDEO_OVERLAY_SELECTOR = '.ytd-thumbnail-overlay-resume-playback-renderer';
+  	this._VIDEO_OVERLAY_SELECTOR = 'ytd-browse.ytd-page-manager:visible ytd-thumbnail-overlay-resume-playback-renderer';
   	this._VIDEO_CONTAINER_SELECTOR = 'ytd-grid-video-renderer,ytd-rich-item-renderer,ytd-compact-video-renderer,ytd-video-renderer';
 
     // Properties
@@ -50,7 +50,7 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
           overlays.removeClass('bwt-hidden');
         }
       }else{
-        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+':not(.bwt-hidden)');
+        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+':not(.bwt-hidden):has(>div#progress[style^="width: 100%"])');
         if(overlays.length > 0){
           console.log('Hide '+overlays.length+' vidéos');
           overlays.parents(that._VIDEO_CONTAINER_SELECTOR).hide();
