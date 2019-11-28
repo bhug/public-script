@@ -29,7 +29,8 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
     super('bwt-yt-show-watched','Show watched');
     
     // Constants
-  	this._VIDEO_OVERLAY_SELECTOR = 'ytd-browse.ytd-page-manager:visible ytd-thumbnail-overlay-resume-playback-renderer';
+  	this._VIDEO_OVERLAY_SHOW_SELECTOR = 'ytd-browse.ytd-page-manager:visible ytd-thumbnail-overlay-resume-playback-renderer:hidden>div[style^="width: 100%"]';
+  	this._VIDEO_OVERLAY_HIDE_SELECTOR = 'ytd-browse.ytd-page-manager:visible ytd-thumbnail-overlay-resume-playback-renderer:visible>div[style^="width: 100%"]';
   	this._VIDEO_CONTAINER_SELECTOR = 'ytd-grid-video-renderer,ytd-rich-item-renderer,ytd-compact-video-renderer,ytd-video-renderer';
 
     // Properties
@@ -43,18 +44,16 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
     var that = this;
     this._interval = setInterval(function(){
       if(that._showWatched){
-        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+'.bwt-hidden');
+        var overlays = $(that._VIDEO_OVERLAY_SHOW_SELECTOR);
         if(overlays.length > 0){
-          console.log('Show '+overlays.length+' vidéos');
+          console.log('Show '+overlays.length+' videos', overlays);
           overlays.parents(that._VIDEO_CONTAINER_SELECTOR).show();
-          overlays.removeClass('bwt-hidden');
         }
       }else{
-        var overlays = $(that._VIDEO_OVERLAY_SELECTOR+':not(.bwt-hidden):has(>div#progress[style^="width: 100%"])');
+        var overlays = $(that._VIDEO_OVERLAY_HIDE_SELECTOR);
         if(overlays.length > 0){
-          console.log('Hide '+overlays.length+' vidéos');
+          console.log('Hide '+overlays.length+' videos', overlays);
           overlays.parents(that._VIDEO_CONTAINER_SELECTOR).hide();
-          overlays.addClass('bwt-hidden');
         }
       }
     }, 1000);
