@@ -56,7 +56,12 @@ class BwtYtShowWatchedMenuItem extends BwtChkboxMenuItem{
           overlays.parents(that._VIDEO_CONTAINER_SELECTOR).hide();
         }
       }
-    }, 1000);
+      // Suppression des étagères vides
+      $('ytd-item-section-renderer:has(ytd-grid-video-renderer:hidden) #dismissable > .grid-subheader').css('display','none');
+      $('ytd-item-section-renderer:has(ytd-grid-video-renderer:hidden) #dismissable > #contents.ytd-shelf-renderer').css('marginTop','0px');
+      $('ytd-item-section-renderer:has(ytd-grid-video-renderer:visible) #dismissable > .grid-subheader').css('display','block');
+      $('ytd-item-section-renderer:has(ytd-grid-video-renderer:visible) #dismissable > #contents.ytd-shelf-renderer').css('marginTop','24px');
+    }, 200);
   }
   
   _onClick(that, aEvent) {
