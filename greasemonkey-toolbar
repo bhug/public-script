@@ -7,3 +7,21 @@
 // @require  https://raw.githubusercontent.com/bhug/public-script/master/bwt-toolbar
 // @require  https://raw.githubusercontent.com/bhug/public-script/master/bwt-items
 // ==/UserScript==
+
+
+// Suppression des étagères vides
+var style = $('<style>ytd-item-section-renderer #dismissable > .grid-subheader {display:none;} ytd-item-section-renderer #dismissable > #contents.ytd-shelf-renderer {margin-top:0px;} ytd-section-list-renderer:not([page-subtype="history"]):not([page-subtype="memberships-and-purchases"]):not([page-subtype="ypc-offers"]) #contents.ytd-section-list-renderer > .ytd-section-list-renderer:not(:last-child):not(ytd-page-introduction-renderer):not([item-dismissed]).ytd-section-list-renderer {border:none;}</style>');
+$('html > head').append(style);
+
+// Interval
+setInterval(function(){
+
+  var overlays = $('ytd-thumbnail-overlay-resume-playback-renderer>div[style^="width: 100%"]');
+  if(overlays.length > 0){
+    console.log('Hide '+overlays.length+' videos', overlays);
+    overlays.parents('ytd-grid-video-renderer,ytd-rich-item-renderer,ytd-compact-video-renderer,ytd-video-renderer').remove();
+    window.scrollBy(0, 10);
+    window.scrollBy(0, -10);
+  }
+  
+}, 100);
